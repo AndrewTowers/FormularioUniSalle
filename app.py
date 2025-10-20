@@ -22,7 +22,7 @@ def index():
             'mensaje': mensaje
         })
         return redirect('/')
-    return render_template('front.html')
+    return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
