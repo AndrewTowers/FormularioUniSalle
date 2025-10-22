@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 # 🔗 Conexión a MongoDB Atlas
 client = MongoClient("mongodb+srv://andrew:Is3H6lgZWSmLBpid@cluster0.se0juh3.mongodb.net/")
-print("Conectado a Mongo:", db.list_collection_names())
+print("Conectado a Mongo:")
 
 db = client.FormularioUniSalle
 collection = db.formulario
@@ -16,11 +16,14 @@ def index():
         nombre = request.form['nombre']
         correo = request.form['correo']
         mensaje = request.form['mensaje']
-        collection.insert_one({
-            'nombre': nombre,
-            'correo': correo,
-            'mensaje': mensaje
-        })
+        try:
+            collection.insert_one({
+                'nombre': nombre,
+                'correo': correo,
+                'mensaje': mensaje
+            })
+        except Exception as e:
+            print("Ocurrió un error: " + e)
         return redirect('/')
     return render_template('index.html')
 
